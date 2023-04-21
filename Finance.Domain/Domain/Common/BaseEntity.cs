@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Finance.Domain.Common;
+namespace BudgetControl.Domain.Common;
 
 public abstract class BaseEntity
 {

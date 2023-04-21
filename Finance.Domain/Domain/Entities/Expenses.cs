@@ -1,6 +1,6 @@
-﻿using Finance.Domain.Common;
+﻿using BudgetControl.Domain.Common;
 
-namespace Finance.Domain.Entities;
+namespace BudgetControl.Domain.Entities;
 public class Expenses : BaseTransaction
 {
 }

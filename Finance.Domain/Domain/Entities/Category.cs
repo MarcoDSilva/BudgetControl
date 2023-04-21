@@ -1,7 +1,7 @@
-﻿using Finance.Domain.Common;
+﻿using BudgetControl.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace Finance.Domain.Domain.Entities;
+namespace udgetControl.Domain.Entities;
 
 public class Category : BaseEntity
 {

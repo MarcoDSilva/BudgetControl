@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace Finance.Presentation.UI.Components;
+namespace BudgetControl.Presentation.UI.Components;
 
 public class MainMenu
 {

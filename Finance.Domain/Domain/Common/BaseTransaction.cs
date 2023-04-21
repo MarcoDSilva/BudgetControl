@@ -1,8 +1,8 @@
-﻿using Finance.Domain.Domain.Entities;
+﻿using BudgetControl.Domain.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Finance.Domain.Common;
+namespace BudgetControl.Domain.Common;
 
 public class BaseTransaction : BaseEntity
 {

@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Finance.Domain\Finance.Domain.csproj" />
-    <ProjectReference Include="..\Finance.Presentation\Finance.Presentation.csproj" />
+    <ProjectReference Include="..\Finance.Domain\BudgetControl.Domain.csproj" />
+    <ProjectReference Include="..\Finance.Presentation\BudgetControl.Presentation.csproj" />
   </ItemGroup>
 
 </Project>
