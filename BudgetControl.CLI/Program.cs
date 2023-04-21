@@ -1,5 +1,4 @@
-﻿using BudgetControl.Domain.Entities;
-using BudgetControl.Presentation.UI.Components;
+﻿using BudgetControl.Presentation.UI.Components;
 using Spectre.Console;
 
 MainMenu main = new MainMenu();

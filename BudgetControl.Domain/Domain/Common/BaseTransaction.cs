@@ -1,4 +1,4 @@
-﻿using BudgetControl.Domain.Common;
+﻿using BudgetControl.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
