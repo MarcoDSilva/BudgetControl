@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BudgetControl.Presentation.UI.Components;
 
@@ -8,7 +9,7 @@ public class MainMenu
 	{
 	}
 
-	public string Login()
+	public string StartSelection()
 	{
 		string selection = AnsiConsole.Prompt(
 				new SelectionPrompt<string>()
@@ -16,10 +17,20 @@ public class MainMenu
 				.PageSize(6)
 				.AddChoices(new[]
 				{
-					"Check Overall", "Expenses", "Income", "Investments", "Categories", "SubCategories"
+					"Account Resume", "Expenses", "Income", "Investments", "Categories", "SubCategories"
 				})
 			);
 
 		return selection;
+	}
+
+	public void CallSelectedMenu(string selection)
+	{
+		PickSelectedMenu(selection);
+	}
+
+	private void PickSelectedMenu(string selection)
+	{
+
 	}
 }

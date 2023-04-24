@@ -1,8 +1,7 @@
 ﻿using BudgetControl.Presentation.UI.Components;
 using Spectre.Console;
 
-MainMenu main = new MainMenu();
+var main = new MainMenu();
 
-string selected = main.Login();
+string selected = main.StartSelection();
 
-AnsiConsole.MarkupLine($"[green]{selected}[/] was selected!");
