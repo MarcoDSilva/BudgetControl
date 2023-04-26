@@ -1,5 +1,4 @@
-﻿using BudgetControl.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BudgetControl.Domain.Common;
@@ -15,11 +14,10 @@ public class BaseTransaction : BaseEntity
 	[Required]
 	public DateTime TransactionDate { get; set; }
 
-	[ForeignKey(nameof(Category))]
-	[Required]
+	[Required, ForeignKey("Categories")]
 	public int CategoryId { get; set; }
 
-	[ForeignKey(nameof(SubCategory))]
+	[Required, ForeignKey("SubCategories")]
 	public int SubCategoryId { get; set; }
 
 }

@@ -4,4 +4,6 @@ using Spectre.Console;
 var main = new MainMenu();
 
 string selected = main.StartSelection();
+AnsiConsole.Write(selected);
+
 
