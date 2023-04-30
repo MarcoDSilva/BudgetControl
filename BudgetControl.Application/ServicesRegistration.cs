@@ -9,7 +9,7 @@ public static class ServicesRegistration
 	// Adding the DI dependencies to the services collection
 	public static IServiceCollection AddServicesDI(this IServiceCollection services)
 	{
-		services.AddScoped<IExpensesService, ExpensesService>();
+		services.AddTransient<IExpensesService, ExpensesService>();
 
 		return services;
 	}

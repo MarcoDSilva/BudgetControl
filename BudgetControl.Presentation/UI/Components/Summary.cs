@@ -8,9 +8,7 @@ public class Summary
 	public void Render()
 	{
 		var tableExpenses = DrawExpensesTable();
-
-
-		
+				
 		AnsiConsole.Write(tableExpenses);
 
 
@@ -48,7 +46,6 @@ public class Summary
 		tableExpenses.AddColumn(new TableColumn("Description").Centered());
 
 		// GetExpensesData
-
 		tableExpenses.AddRow("2023-04-28", "Daily Expenses", "Groceries", "15", "meat");
 		tableExpenses.AddRow("2023-04-25", "Bills", "Gas", "17", "");
 		tableExpenses.AddRow("2023-04-23", "Bills", "Electricity", "22", "");

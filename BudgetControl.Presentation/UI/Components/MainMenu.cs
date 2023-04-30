@@ -1,9 +1,12 @@
-﻿using Spectre.Console;
+﻿using BudgetControl.Application.Services.Interfaces;
+using BudgetControl.Application.Services.Logic;
+using Spectre.Console;
 
 namespace BudgetControl.Presentation.UI.Components;
 
 public class MainMenu
 {
+	private readonly IExpensesService _expensesService;
 	public enum Selections
 	{
 		Summary,
@@ -16,6 +19,11 @@ public class MainMenu
 
 	public MainMenu()
 	{
+	}
+
+	public MainMenu(IExpensesService expensesService)
+	{
+		_expensesService = expensesService;
 	}
 
 	public string StartSelection()
@@ -38,7 +46,7 @@ public class MainMenu
 		return selection;
 	}
 
-	public void CallSelectedMenu(string selection)
+	public async Task CallSelectedMenu(string selection)
 	{
 		// validate if db exists
 		// if not, first runs migration to create
@@ -47,10 +55,10 @@ public class MainMenu
 		// this can be only done once, with a global flag or something
 
 		// then we go for the real menu
-		PickSelectedMenu(selection);
+		await PickSelectedMenu(selection);
 	}
 
-	private void PickSelectedMenu(string selection)
+	private async Task PickSelectedMenu(string selection)
 	{
 		switch (selection)
 		{
@@ -59,6 +67,8 @@ public class MainMenu
 				summary.Render();
 				break;
 			case nameof(Selections.Expenses):
+				var expenses = new ExpensesMenu(_expensesService);
+				await expenses.GetOptions();
 				break;
 			case nameof(Selections.Income):
 				break;
@@ -67,7 +77,7 @@ public class MainMenu
 			case nameof(Selections.SubCategories):
 				break;
 			default:
-				break;
+				throw new ArgumentException("");
 		}
 	}
 }

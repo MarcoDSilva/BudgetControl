@@ -5,4 +5,5 @@ namespace BudgetControl.Application.Services.Interfaces;
 public interface IExpensesService
 {
 	Task<List<ExpensesDTO>> GetExpenses(); 
+	Task<bool> AddAsync(ExpensesDTO expensesDTO);
 }
