@@ -4,12 +4,25 @@ namespace BudgetControl.Infrastructure.Repository;
 
 public class UnitOfwork : IUnitOfWork
 {
-	public ICategoryRepository categoryRepository => throw new NotImplementedException();
+	public ICategoryRepository categoryRepository { get; }
 
-	public IExpensesRepository expensesRepository => throw new NotImplementedException();
+	public IExpensesRepository expensesRepository { get; }
 
-	public IIncomeRepository incomeRepository => throw new NotImplementedException();
+	public IIncomeRepository incomeRepository { get; }
 
-	public IInvestmentRepository investmentRepository => throw new NotImplementedException();
+	public IInvestmentRepository investmentRepository { get; }
+
+	public UnitOfwork(
+		ICategoryRepository categoryRepository,
+		IExpensesRepository expensesRepository,
+		IIncomeRepository incomeRepository,
+		IInvestmentRepository investmentRepository
+		)
+    {
+        this.incomeRepository = incomeRepository;
+		this.categoryRepository = categoryRepository;
+		this.investmentRepository = investmentRepository;
+		this.expensesRepository = expensesRepository;
+    }
 }
 

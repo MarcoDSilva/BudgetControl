@@ -1,12 +1,23 @@
-﻿using BudgetControl.Domain.Entities;
+﻿using BudgetControl.Data.Context;
+using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Infrastructure.Repository;
 public class ExpensesRepository : IExpensesRepository
 {
-	public Task<Expenses> CreateAsync(Expenses entity)
+	private readonly BudgetControlDBContext _budgetControlDB;
+
+    public ExpensesRepository(BudgetControlDBContext budgetControlDBContext)
+    {
+        _budgetControlDB = budgetControlDBContext;
+    }
+
+    public async Task<bool> CreateAsync(Expenses entity)
 	{
-		throw new NotImplementedException();
+		var inserted = await _budgetControlDB.Expenses.AddAsync(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
 	public Task<Expenses> DeleteAsync(Expenses entity)

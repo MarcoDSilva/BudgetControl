@@ -1,11 +1,19 @@
-﻿using BudgetControl.Domain.Entities;
+﻿using BudgetControl.Data.Context;
+using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Infrastructure.Repository;
 
 public class InvestmentRepository : IInvestmentRepository
 {
-	public Task<Investments> CreateAsync(Investments entity)
+	private readonly BudgetControlDBContext _budgetControlDB;
+
+	public InvestmentRepository(BudgetControlDBContext budgetControlDBContext)
+	{
+		_budgetControlDB = budgetControlDBContext;
+	}
+
+	public Task<bool> CreateAsync(Investments entity)
 	{
 		throw new NotImplementedException();
 	}

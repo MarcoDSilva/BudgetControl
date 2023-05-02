@@ -36,7 +36,7 @@ public class ExpensesMenu
 		switch (menuName)
 		{
 			case nameof(Options.Add):
-				bool wasAdded = await AddExpense();
+				await AddExpense();				
 				break;
 			case nameof(Options.Edit):
 				break;
@@ -48,7 +48,7 @@ public class ExpensesMenu
 		}
 	}
 
-	public async Task<bool> AddExpense()
+	public async Task AddExpense()
 	{
 		var rule = new Rule("[yellow4_1]Expense to add[/]");
 		rule.LeftJustified();
@@ -68,6 +68,10 @@ public class ExpensesMenu
 		expense.Value = value;
 
 		bool wasAdded = await _expensesService.AddAsync(expense);
-		return wasAdded;
+
+		if (wasAdded)
+			AnsiConsole.WriteLine("sucessfully added");
+		else
+			AnsiConsole.Write("something super wrong happened");
 	}
 }

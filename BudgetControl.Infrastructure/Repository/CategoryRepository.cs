@@ -1,10 +1,19 @@
-﻿using BudgetControl.Domain.Entities;
+﻿using BudgetControl.Data.Context;
+using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Infrastructure.Repository;
 public class CategoryRepository : ICategoryRepository
 {
-	public Task<Category> CreateAsync(Category entity)
+	private readonly BudgetControlDBContext _budgetControlDB;
+
+	public CategoryRepository(BudgetControlDBContext budgetControlDBContext)
+	{
+		_budgetControlDB = budgetControlDBContext;
+	}
+
+
+	public Task<bool> CreateAsync(Category entity)
 	{
 		throw new NotImplementedException();
 	}

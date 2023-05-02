@@ -17,18 +17,28 @@ public class ExpensesService : IExpensesService
 		_mapper = mapper;
 	}
 
-	public Task<bool> AddAsync(ExpensesDTO expensesDTO)
+	public async Task<bool> AddAsync(ExpensesDTO expensesDTO)
 	{
-		return Task.FromResult(true);
+		var expenses = new Expenses()
+		{
+			Description = expensesDTO.Description,
+			CreatedAt = DateTime.Now,
+			TransactionDate = expensesDTO.TransactionDate,
+			Value = expensesDTO.Value,
+			ChangedAt = DateTime.Now,
+			CategoryId = 1,
+			SubCategoryId = 1
+		};
 
-		throw new NotImplementedException();
+		var addedExpense = await _unitOfWork.expensesRepository.CreateAsync(expenses);
+		return addedExpense;
 	}
 
 	public async Task<List<ExpensesDTO>> GetExpenses()
 	{
 		var expenses = await _unitOfWork.expensesRepository.GetAllAsync();
 		var expensesDTO = new List<ExpensesDTO>();
-		
+
 		expenses.ForEach(exp => expensesDTO.Add(_mapper.Map<Expenses, ExpensesDTO>(exp)));
 		return expensesDTO;
 	}

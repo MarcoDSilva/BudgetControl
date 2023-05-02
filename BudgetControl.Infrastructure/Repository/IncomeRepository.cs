@@ -1,11 +1,19 @@
-﻿using BudgetControl.Domain.Entities;
+﻿using BudgetControl.Data.Context;
+using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Infrastructure.Repository;
 
 public class IncomeRepository : IIncomeRepository
 {
-	public Task<Income> CreateAsync(Income entity)
+	private readonly BudgetControlDBContext _budgetControlDB;
+
+	public IncomeRepository(BudgetControlDBContext budgetControlDBContext)
+	{
+		_budgetControlDB = budgetControlDBContext;
+	}
+
+	public Task<bool> CreateAsync(Income entity)
 	{
 		throw new NotImplementedException();
 	}

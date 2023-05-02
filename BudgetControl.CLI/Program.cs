@@ -6,6 +6,10 @@ using BudgetControl.Application;
 using BudgetControl.Application.Services.Interfaces;
 using BudgetControl.Application.Services.Logic;
 using BudgetControl.Infrastructure;
+using BudgetControl.Data.Context;
+using BudgetControl.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 internal class Program
 {
@@ -14,19 +18,23 @@ internal class Program
 		// to setup configurations like appsettings and so on
 		var config = new ConfigurationBuilder();
 
+		var host = Host.CreateDefaultBuilder()
+						.ConfigureServices((context, services) =>
+						{
 
-		// to setup DI
-		var services = new ServiceCollection();
-		services.AddServicesDI();
-		services.AddInfrastructureDI();
+							services.AddServicesDI();
+							services.AddInfrastructureDI();							
+							services.AddAutoMapper(typeof(Program).Assembly);
+							services.AddDBService();
 
-		services.AddAutoMapper(typeof(Program).Assembly);
-
-		// building services
-		var s = services.BuildServiceProvider();
+							//services.AddDbContext<BudgetControlDBContext>(options =>
+							//{
+							//	options.UseSqlite(context.Configuration.GetConnectionString("Sql-lite"));
+							//});
+						}).Build();
 
 		// getting services for DI to presentation
-		var expenseService = s.GetRequiredService<IExpensesService>();
+		var expenseService = host.Services.GetRequiredService<IExpensesService>();
 
 		// running the program
 		var main = new MainMenu(expenseService);
