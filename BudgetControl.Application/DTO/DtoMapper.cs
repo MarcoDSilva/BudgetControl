@@ -8,5 +8,6 @@ public class DtoMapper : Profile
     public DtoMapper()
     {
         CreateMap<Expenses, ExpensesDTO>();
-    }
+        //CreateMap<ExpensesDTO, Expenses>();
+	}
 }

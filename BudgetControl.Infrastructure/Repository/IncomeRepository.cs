@@ -18,7 +18,7 @@ public class IncomeRepository : IIncomeRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Income> DeleteAsync(Income entity)
+	public Task<bool> DeleteAsync(Income entity)
 	{
 		throw new NotImplementedException();
 	}
@@ -28,17 +28,17 @@ public class IncomeRepository : IIncomeRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Income> GetByIdAsync(int id)
+	public Task<Income?> GetByIdAsync(int id)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Income> GetByNameAsync(string name)
+	public Task<List<Income?>> GetByNameAsync(string name)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Income> UpdateAsync(Income entity)
+	public void Update(Income entity)
 	{
 		throw new NotImplementedException();
 	}

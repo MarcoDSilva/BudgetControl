@@ -21,16 +21,10 @@ internal class Program
 		var host = Host.CreateDefaultBuilder()
 						.ConfigureServices((context, services) =>
 						{
-
 							services.AddServicesDI();
 							services.AddInfrastructureDI();							
 							services.AddAutoMapper(typeof(Program).Assembly);
-							services.AddDBService();
-
-							//services.AddDbContext<BudgetControlDBContext>(options =>
-							//{
-							//	options.UseSqlite(context.Configuration.GetConnectionString("Sql-lite"));
-							//});
+							services.AddDBService();							
 						}).Build();
 
 		// getting services for DI to presentation

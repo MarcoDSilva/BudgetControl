@@ -71,10 +71,16 @@ public class MainMenu
 				await expenses.GetOptions();
 				break;
 			case nameof(Selections.Income):
+				//var income = new IncomeMenu(_incomeService);
+				//await income.GetOptions();
 				break;
 			case nameof(Selections.Categories):
+				//var category = new CategoriesMenu(_categoryService);
+				//await category.GetOptions();
 				break;
 			case nameof(Selections.SubCategories):
+				//var subCategory = new SubCategoriesMenu(_subCategoryService);
+				//await subCategory.GetOptions();
 				break;
 			default:
 				throw new ArgumentException("");

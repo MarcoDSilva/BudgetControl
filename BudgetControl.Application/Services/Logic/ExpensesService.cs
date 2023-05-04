@@ -39,7 +39,15 @@ public class ExpensesService : IExpensesService
 		var expenses = await _unitOfWork.expensesRepository.GetAllAsync();
 		var expensesDTO = new List<ExpensesDTO>();
 
-		expenses.ForEach(exp => expensesDTO.Add(_mapper.Map<Expenses, ExpensesDTO>(exp)));
+		expenses.ForEach(exp => expensesDTO.Add(new ExpensesDTO
+		{
+			CategoryId = exp.CategoryId,
+			Description = exp.Description,
+			SubCategoryId = exp.SubCategoryId,
+			Value = exp.Value,
+			TransactionDate	= exp.TransactionDate
+		}));
+
 		return expensesDTO;
 	}
 }

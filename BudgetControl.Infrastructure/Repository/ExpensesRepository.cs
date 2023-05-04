@@ -1,6 +1,7 @@
 ﻿using BudgetControl.Data.Context;
 using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetControl.Infrastructure.Repository;
 public class ExpensesRepository : IExpensesRepository
@@ -20,28 +21,38 @@ public class ExpensesRepository : IExpensesRepository
 		return save > 0;
 	}
 
-	public Task<Expenses> DeleteAsync(Expenses entity)
+	public async Task<bool> DeleteAsync(Expenses entity)
 	{
-		throw new NotImplementedException();
+		var deleted = _budgetControlDB.Expenses.Remove(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
-	public Task<List<Expenses>> GetAllAsync()
+	public async Task<List<Expenses>> GetAllAsync()
 	{
-		throw new NotImplementedException();
+		var expenses = await _budgetControlDB.Expenses.ToListAsync();
+		return expenses;
 	}
 
-	public Task<Expenses> GetByIdAsync(int id)
+	public async Task<Expenses?> GetByIdAsync(int id)
 	{
-		throw new NotImplementedException();
+		var expenses = await _budgetControlDB.Expenses.ToListAsync();
+		var expense = expenses.Where(ex => ex.Id == id).FirstOrDefault();
+
+		return expense;
 	}
 
-	public Task<Expenses> GetByNameAsync(string name)
+	public async Task<List<Expenses?>> GetByNameAsync(string name)
 	{
-		throw new NotImplementedException();
+		var expenses = await _budgetControlDB.Expenses.ToListAsync();
+		var expense = expenses.Where(exp => exp.Description.Equals(name)).ToList();
+
+		return expense;
 	}
 
-	public Task<Expenses> UpdateAsync(Expenses entity)
+	public void Update(Expenses entity)
 	{
-		throw new NotImplementedException();
+		_budgetControlDB.Expenses.Update(entity);
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using Spectre.Console;
-using System.Net.NetworkInformation;
 
 namespace BudgetControl.Presentation.UI.Components;
 
@@ -10,25 +9,6 @@ public class Summary
 		var tableExpenses = DrawExpensesTable();
 				
 		AnsiConsole.Write(tableExpenses);
-
-
-		//var incomeCol = table.AddColumn(new TableColumn("Income").Centered());
-		//var investmentCol = table.AddColumn(new TableColumn("Investment").Centered());
-
-
-
-		//incomeCol.AddColumn(new TableColumn("Description").Centered());
-		//incomeCol.AddColumn(new TableColumn("Value").Centered());
-		//incomeCol.AddColumn(new TableColumn("Transaction Date"));
-		//incomeCol.AddColumn(new TableColumn("Category").Centered());
-		//incomeCol.AddColumn(new TableColumn("SubCategory").Centered());
-
-
-		//investmentCol.AddColumn(new TableColumn("Description").Centered());
-		//investmentCol.AddColumn(new TableColumn("Value").Centered());
-		//investmentCol.AddColumn(new TableColumn("Transaction Date"));
-		//investmentCol.AddColumn(new TableColumn("Category").Centered());
-		//investmentCol.AddColumn(new TableColumn("SubCategory").Centered());
 	}
 
 	private Table DrawExpensesTable()

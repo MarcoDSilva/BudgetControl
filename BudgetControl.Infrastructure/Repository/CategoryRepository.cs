@@ -1,5 +1,6 @@
 ﻿using BudgetControl.Data.Context;
 using BudgetControl.Domain.Entities;
+using BudgetControl.Domain.Interfaces;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Infrastructure.Repository;
@@ -18,7 +19,7 @@ public class CategoryRepository : ICategoryRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Category> DeleteAsync(Category entity)
+	public Task<bool> DeleteAsync(Category entity)
 	{
 		throw new NotImplementedException();
 	}
@@ -28,17 +29,17 @@ public class CategoryRepository : ICategoryRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Category> GetByIdAsync(int id)
+	public Task<Category?> GetByIdAsync(int id)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Category> GetByNameAsync(string name)
+	public Task<List<Category?>> GetByNameAsync(string name)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Category> UpdateAsync(Category entity)
+	public void Update(Category entity)
 	{
 		throw new NotImplementedException();
 	}

@@ -18,7 +18,7 @@ public class InvestmentRepository : IInvestmentRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Investments> DeleteAsync(Investments entity)
+	public Task<bool> DeleteAsync(Investments entity)
 	{
 		throw new NotImplementedException();
 	}
@@ -28,17 +28,17 @@ public class InvestmentRepository : IInvestmentRepository
 		throw new NotImplementedException();
 	}
 
-	public Task<Investments> GetByIdAsync(int id)
+	public Task<Investments?> GetByIdAsync(int id)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Investments> GetByNameAsync(string name)
+	public Task<List<Investments?>> GetByNameAsync(string name)
 	{
 		throw new NotImplementedException();
 	}
 
-	public Task<Investments> UpdateAsync(Investments entity)
+	public void Update(Investments entity)
 	{
 		throw new NotImplementedException();
 	}
