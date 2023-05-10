@@ -1,5 +1,6 @@
 ﻿using BudgetControl.Application.Services.Interfaces;
 using BudgetControl.Application.Services.Logic;
+using BudgetControl.Presentation.Shared.Enums;
 using Spectre.Console;
 
 namespace BudgetControl.Presentation.UI.Components;
@@ -67,23 +68,61 @@ public class MainMenu
 				summary.Render();
 				break;
 			case nameof(Selections.Expenses):
-				var expenses = new ExpensesMenu(_expensesService);
-				await expenses.GetOptions();
+				await CallExpenses();
 				break;
 			case nameof(Selections.Income):
-				//var income = new IncomeMenu(_incomeService);
-				//await income.GetOptions();
+				await CallIncome();
 				break;
 			case nameof(Selections.Categories):
-				//var category = new CategoriesMenu(_categoryService);
-				//await category.GetOptions();
+				await CallCategories();
 				break;
 			case nameof(Selections.SubCategories):
-				//var subCategory = new SubCategoriesMenu(_subCategoryService);
-				//await subCategory.GetOptions();
+				await CallSubCategories();				
 				break;
 			default:
 				throw new ArgumentException("");
 		}
+	}
+
+	private static string GetOptions(string selectedMenu)
+	{
+		string option = AnsiConsole.Prompt(
+			new SelectionPrompt<string>()
+				.Title($"What do you want to do on the {selectedMenu} menu?")
+				.AddChoices(new[]
+				{
+					nameof(Options.Add),
+					nameof(Options.Edit),
+					nameof(Options.Delete),
+					nameof(Options.View)
+				})
+			);
+
+		return option;
+	}
+
+	private async Task CallExpenses()
+	{
+		string selected = GetOptions(nameof(Selections.Expenses));
+		var expenses = new ExpensesMenu(_expensesService);
+
+		await expenses.Selection(selected);
+	}
+
+	private async Task CallIncome()
+	{
+		//var income = new IncomeMenu(_incomeService);
+		//await income.GetOptions();
+	}
+	private async Task CallCategories()
+	{
+		//var category = new CategoriesMenu(_categoryService);
+		//await category.GetOptions();
+	}
+
+	private async Task CallSubCategories()
+	{
+		//var subCategory = new SubCategoriesMenu(_subCategoryService);
+		//await subCategory.GetOptions();
 	}
 }

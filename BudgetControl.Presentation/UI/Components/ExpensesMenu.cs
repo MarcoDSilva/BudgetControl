@@ -14,24 +14,7 @@ public class ExpensesMenu
 		_expensesService = expenses;
 	}
 
-	public async Task GetOptions()
-	{
-		var option = AnsiConsole.Prompt(
-			new SelectionPrompt<string>()
-				.Title("What do you want to do on the expenses menu?")
-				.AddChoices(new[]
-				{
-					nameof(Options.Add),
-					nameof(Options.Edit),
-					nameof(Options.Delete),
-					nameof(Options.View)
-				})
-			);
-
-		await PickSelectedMenu(option);
-	}
-
-	public async Task PickSelectedMenu(string menuName)
+	public async Task Selection(string menuName)
 	{
 		switch (menuName)
 		{
@@ -58,22 +41,21 @@ public class ExpensesMenu
 		var transactionDate = AnsiConsole.Ask<DateTime>("What was the [green]transaction date[/]? yyyy-mm-dd");
 		var category = AnsiConsole.Ask<int>("What was the [mediumorchid]category[/]?");
 		var subCategory = AnsiConsole.Ask<int>("What was the [grey63]subCategory[/]?");
-		var value = AnsiConsole.Ask<decimal>("What was the moneraty [red]value[/]?");
+		var value = AnsiConsole.Ask<decimal>("What was the monetary [red]value[/]?");
 		var description = AnsiConsole.Ask<string>("Do you want to add a description about this expense?");
 
-		var expense = new ExpensesDTO();
-		expense.TransactionDate = transactionDate;
-		expense.CategoryId = category;
-		expense.Description = description;
-		expense.SubCategoryId = subCategory;
-		expense.Value = value;
+		var expense = new ExpensesDTO()
+		{
+			TransactionDate = transactionDate,
+			CategoryId = category,
+			Description = description,
+			SubCategoryId = subCategory,
+			Value = value
+		};
 
 		bool wasAdded = await _expensesService.AddAsync(expense);
 
-		if (wasAdded)
-			AnsiConsole.WriteLine("sucessfully added");
-		else
-			AnsiConsole.Write("something super wrong happened");
+		AnsiConsole.WriteLine(wasAdded ? "sucessfully added" : "something super wrong happened");
 	}
 
 	public async Task GetExpenses()
@@ -96,13 +78,13 @@ public class ExpensesMenu
 			tableExpenses.AddColumn(new TableColumn("Value").Centered());
 			tableExpenses.AddColumn(new TableColumn("Description").Centered());
 
-			foreach (var expense in expenses)
+			expenses.ForEach(expense =>
 			{
 				sum += expense.Value;
 
 				tableExpenses.AddRow(expense.TransactionDate.ToString(), expense.CategoryId.ToString(),
 					expense.SubCategoryId.ToString(), expense.Value.ToString(), expense.Value.ToString());
-			}
+			});
 
 			tableExpenses.Caption = new TableTitle($"This transactions cost you [red]{sum}[/] euros");
 			AnsiConsole.Write(tableExpenses);
