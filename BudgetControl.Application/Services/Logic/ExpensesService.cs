@@ -45,9 +45,24 @@ public class ExpensesService : IExpensesService
 			Description = exp.Description,
 			SubCategoryId = exp.SubCategoryId,
 			Value = exp.Value,
-			TransactionDate	= exp.TransactionDate
+			TransactionDate = exp.TransactionDate
 		}));
 
 		return expensesDTO;
+	}
+
+	public Task<bool> EditAsync(ExpensesDTO expensesDTO)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<bool> RemoveAsync(int id)
+	{
+		throw new NotImplementedException();
+	}
+
+	public Task<Expenses?> GetExpenseByID(int id)
+	{
+		throw new NotImplementedException();
 	}
 }

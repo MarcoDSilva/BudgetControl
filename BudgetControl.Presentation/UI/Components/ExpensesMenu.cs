@@ -22,21 +22,21 @@ public class ExpensesMenu
 				await AddExpense();
 				break;
 			case nameof(Options.Edit):
+				await EditExpense();
 				break;
 			case nameof(Options.Delete):
+				await DeleteExpense();
 				break;
 			case nameof(Options.View):
 				await GetExpenses();
 				break;
-			default: throw new ArgumentException("");
+			default: throw new ArgumentException("Option not available");
 		}
 	}
 
 	public async Task AddExpense()
 	{
-		var rule = new Rule("[yellow4_1]Expense to add[/]");
-		rule.LeftJustified();
-		AnsiConsole.Write(rule);
+		Question("Expense to add");
 
 		var transactionDate = AnsiConsole.Ask<DateTime>("What was the [green]transaction date[/]? yyyy-mm-dd");
 		var category = AnsiConsole.Ask<int>("What was the [mediumorchid]category[/]?");
@@ -89,5 +89,62 @@ public class ExpensesMenu
 			tableExpenses.Caption = new TableTitle($"This transactions cost you [red]{sum}[/] euros");
 			AnsiConsole.Write(tableExpenses);
 		}
+	}
+
+	public async Task DeleteExpense()
+	{
+		Question("Expense to remove?");
+
+		var expenseId = GetID("What is the ID of the expense you want to remove?");
+		var result = await _expensesService.RemoveAsync(expenseId);
+
+		AnsiConsole.WriteLine(result ? "sucessfully removed" : "something super wrong happened");
+	}
+
+	public async Task EditExpense()
+	{
+		// get expense id
+		Question("Expense to edit.");
+
+		var expenseId = GetID("What is the ID of the expense you want to edit?");
+		var expense = _expensesService.GetExpenseByID(expenseId);
+
+		if (expense is null)
+		{
+			AnsiConsole.WriteLine("expense was not found");
+			return;
+		}
+
+		// what do you want to edit
+		// get field
+		// edit that field
+		// send to db
+		// update/fail
+		// sucess or fail message
+	}
+
+	private void Question(string message)
+	{
+		var rule = new Rule($"[yellow4_1]{message}[/]");
+		rule.LeftJustified();
+		AnsiConsole.Write(rule);
+	}
+
+	private int GetID(string message)
+	{
+		var expenseId = AnsiConsole.Prompt<int>(
+							new TextPrompt<int>(message)
+							.PromptStyle("red")
+							.ValidationErrorMessage("[red]That's not a valid ID[/]")
+							.Validate(id =>
+							{
+								return id switch
+								{
+									<= 0 => ValidationResult.Error("[red]Id can't be equal or under to 0![/]"),
+									_ => ValidationResult.Success(),
+								};
+							}));
+
+		return expenseId;
 	}
 }

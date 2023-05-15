@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BudgetControl.Infrastructure;
 
-public static class InfrastructureService
+public static class InfrastructureRegistration
 {
 	public static IServiceCollection AddInfrastructureDI(this IServiceCollection services)
 	{
