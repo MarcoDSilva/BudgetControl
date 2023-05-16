@@ -96,7 +96,15 @@ public class ExpensesMenu
 		Question("Expense to remove?");
 
 		var expenseId = GetID("What is the ID of the expense you want to remove?");
-		var result = await _expensesService.RemoveAsync(expenseId);
+		var expense = await _expensesService.GetExpenseByID(expenseId);
+
+		if (expense is null)
+		{
+			AnsiConsole.WriteLine("Expense not found");
+			return;
+		}
+
+		var result = await _expensesService.RemoveAsync(expense);
 
 		AnsiConsole.WriteLine(result ? "sucessfully removed" : "something super wrong happened");
 	}

@@ -56,13 +56,17 @@ public class ExpensesService : IExpensesService
 		throw new NotImplementedException();
 	}
 
-	public Task<bool> RemoveAsync(int id)
+	public async Task<bool> RemoveAsync(Expenses expense)
 	{
-		throw new NotImplementedException();
+		var remove = await _unitOfWork.expensesRepository.DeleteAsync(expense);
+		return remove;
 	}
 
-	public Task<Expenses?> GetExpenseByID(int id)
+	public async Task<Expenses?> GetExpenseByID(int id)
 	{
-		throw new NotImplementedException();
+		var expenses = await _unitOfWork.expensesRepository.GetAllAsync();
+		var expense = expenses.Find(exp => exp.Id == id);
+
+		return expense;
 	}
 }
