@@ -38,7 +38,7 @@ public class IncomeRepository : IIncomeRepository
 		throw new NotImplementedException();
 	}
 
-	public void Update(Income entity)
+	public Task<bool> Update(Income entity)
 	{
 		throw new NotImplementedException();
 	}

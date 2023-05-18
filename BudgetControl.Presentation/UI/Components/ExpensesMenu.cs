@@ -1,5 +1,6 @@
 ﻿using BudgetControl.Application.DTO;
 using BudgetControl.Application.Services.Interfaces;
+using BudgetControl.Domain.Entities;
 using BudgetControl.Presentation.Shared.Enums;
 using Spectre.Console;
 
@@ -115,7 +116,7 @@ public class ExpensesMenu
 		Question("Expense to edit.");
 
 		var expenseId = GetID("What is the ID of the expense you want to edit?");
-		var expense = _expensesService.GetExpenseByID(expenseId);
+		var expense = await _expensesService.GetExpenseByID(expenseId);
 
 		if (expense is null)
 		{
@@ -123,12 +124,12 @@ public class ExpensesMenu
 			return;
 		}
 
-		// what do you want to edit
-		// get field
-		// edit that field
-		// send to db
-		// update/fail
-		// sucess or fail message
+		DrawExpense(expense);
+
+		var expenseToEdit = EditExpenseField(expense);
+		var wasEdited = await _expensesService.EditAsync(expenseToEdit);
+
+		AnsiConsole.WriteLine(wasEdited ? "sucessfully edited" : "something super wrong happened");
 	}
 
 	private void Question(string message)
@@ -154,5 +155,63 @@ public class ExpensesMenu
 							}));
 
 		return expenseId;
+	}
+
+	private void DrawExpense(Expenses expense)
+	{
+		var tableExpenses = new Table();
+		tableExpenses.Border = TableBorder.SimpleHeavy;
+		tableExpenses.Expand();
+
+		tableExpenses.Title = new TableTitle("[yellow]Expenses[/]");
+
+		tableExpenses.AddColumn(new TableColumn("1 - Date"));
+		tableExpenses.AddColumn(new TableColumn("2 - Category").Centered());
+		tableExpenses.AddColumn(new TableColumn("3 - SubCategory").Centered());
+		tableExpenses.AddColumn(new TableColumn("4 - Value").Centered());
+		tableExpenses.AddColumn(new TableColumn("5 - Description").Centered());
+
+		tableExpenses.AddRow(expense.TransactionDate.ToString(), expense.CategoryId.ToString(),
+					expense.SubCategoryId.ToString(), expense.Value.ToString(), expense.Value.ToString());
+
+		tableExpenses.Caption = new TableTitle($"This is the expense you want to edit.");
+		AnsiConsole.Write(tableExpenses);
+	}
+
+	private Expenses EditExpenseField(Expenses expense)
+	{
+		var editedExpense = AnsiConsole.Prompt<int>(
+								new TextPrompt<int>("What field you want to edit? Pick the number from the field.")
+								.Validate(id =>
+								{
+									return id switch
+									{
+										<= 0 => ValidationResult.Error("[red]Id can't be equal or under to 0![/]"),
+										_ => ValidationResult.Success(),
+									};
+								}));
+
+		switch (editedExpense)
+		{
+			case 1:
+				expense.TransactionDate = AnsiConsole.Ask<DateTime>("What was the [green]transaction date[/]? yyyy-mm-dd");
+				break;
+			case 2:
+				expense.CategoryId = AnsiConsole.Ask<int>("What was the [mediumorchid]category[/]?");
+				break;
+			case 3:
+				expense.SubCategoryId = AnsiConsole.Ask<int>("What was the [grey63]subCategory[/]?");
+				break;
+			case 4:
+				expense.Value = AnsiConsole.Ask<decimal>("What was the monetary [red]value[/]?");
+				break;
+			case 5:
+				expense.Description = AnsiConsole.Ask<string>("Do you want to add a description about this expense?");
+				break;
+			default:
+				break;
+		}
+
+		return expense;
 	}
 }

@@ -51,9 +51,10 @@ public class ExpensesService : IExpensesService
 		return expensesDTO;
 	}
 
-	public Task<bool> EditAsync(ExpensesDTO expensesDTO)
+	public async Task<bool> EditAsync(Expenses expenses)
 	{
-		throw new NotImplementedException();
+		var wasSaved = await _unitOfWork.expensesRepository.Update(expenses);
+		return wasSaved;
 	}
 
 	public async Task<bool> RemoveAsync(Expenses expense)

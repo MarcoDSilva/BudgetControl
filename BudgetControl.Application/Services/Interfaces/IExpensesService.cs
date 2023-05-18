@@ -8,6 +8,6 @@ public interface IExpensesService
 	Task<List<ExpensesDTO>> GetExpenses();
 	Task<bool> AddAsync(ExpensesDTO expensesDTO);
 	Task<bool> RemoveAsync(Expenses expense);
-	Task<bool> EditAsync(ExpensesDTO expensesDTO);
+	Task<bool> EditAsync(Expenses expensesDTO);
 	Task<Expenses?> GetExpenseByID(int id);
 }

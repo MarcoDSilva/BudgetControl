@@ -22,9 +22,9 @@ internal class Program
 						.ConfigureServices((context, services) =>
 						{
 							services.AddServicesDI();
-							services.AddInfrastructureDI();							
+							services.AddInfrastructureDI();
 							services.AddAutoMapper(typeof(Program).Assembly);
-							services.AddDBService();							
+							services.AddDBService();
 						}).Build();
 
 		// getting services for DI to presentation
@@ -33,7 +33,14 @@ internal class Program
 		// running the program
 		var main = new MainMenu(expenseService);
 
-		string selected = main.StartSelection();
-		await main.CallSelectedMenu(selected);
+		bool wasOrderedToClose = false;
+
+		do
+		{
+			string selected = main.StartSelection();
+			await main.CallSelectedMenu(selected);
+			wasOrderedToClose = main.wasShuttedDown;
+		}
+		while (!wasOrderedToClose);
 	}
 }

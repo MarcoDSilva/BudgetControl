@@ -38,7 +38,7 @@ public class InvestmentRepository : IInvestmentRepository
 		throw new NotImplementedException();
 	}
 
-	public void Update(Investments entity)
+	public Task<bool> Update(Investments entity)
 	{
 		throw new NotImplementedException();
 	}

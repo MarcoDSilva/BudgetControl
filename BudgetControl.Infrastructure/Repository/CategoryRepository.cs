@@ -2,6 +2,7 @@
 using BudgetControl.Domain.Entities;
 using BudgetControl.Domain.Interfaces;
 using BudgetControl.Infrastructure.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace BudgetControl.Infrastructure.Repository;
 public class CategoryRepository : ICategoryRepository
@@ -39,8 +40,8 @@ public class CategoryRepository : ICategoryRepository
 		throw new NotImplementedException();
 	}
 
-	public void Update(Category entity)
+	public Task<bool> Update(Category entity)
 	{
 		throw new NotImplementedException();
-	}
+	}	
 }

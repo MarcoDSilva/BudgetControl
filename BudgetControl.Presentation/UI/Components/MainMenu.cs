@@ -7,7 +7,9 @@ namespace BudgetControl.Presentation.UI.Components;
 
 public class MainMenu
 {
-	private readonly IExpensesService _expensesService;
+    public bool wasShuttedDown { get; set; }
+
+    private readonly IExpensesService _expensesService;
 	public enum Selections
 	{
 		Summary,
@@ -15,16 +17,19 @@ public class MainMenu
 		Income,
 		Investments,
 		Categories,
-		SubCategories
+		SubCategories,
+		Exit
 	};
 
 	public MainMenu()
 	{
+		wasShuttedDown = false;
 	}
 
 	public MainMenu(IExpensesService expensesService)
 	{
 		_expensesService = expensesService;
+		wasShuttedDown = false;
 	}
 
 	public string StartSelection()
@@ -32,7 +37,7 @@ public class MainMenu
 		string selection = AnsiConsole.Prompt(
 				new SelectionPrompt<string>()
 				.Title("Welcome To BudgetControl!")
-				.PageSize(6)
+				.PageSize(7)
 				.AddChoices(new[]
 				{
 					nameof(Selections.Summary),
@@ -40,7 +45,8 @@ public class MainMenu
 					nameof(Selections.Income),
 					nameof(Selections.Investments),
 					nameof(Selections.Categories),
-					nameof(Selections.SubCategories)
+					nameof(Selections.SubCategories),
+					nameof(Selections.Exit)
 				})
 			);
 
@@ -78,6 +84,9 @@ public class MainMenu
 				break;
 			case nameof(Selections.SubCategories):
 				await CallSubCategories();				
+				break;
+			case nameof(Selections.Exit):
+				wasShuttedDown = true;
 				break;
 			default:
 				throw new ArgumentException("");

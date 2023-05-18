@@ -51,8 +51,11 @@ public class ExpensesRepository : IExpensesRepository
 		return expense;
 	}
 
-	public void Update(Expenses entity)
+	public async Task<bool> Update(Expenses entity)
 	{
 		_budgetControlDB.Expenses.Update(entity);
+		var wasSaved = await _budgetControlDB.SaveChangesAsync();
+
+		return wasSaved > 0;
 	}
 }
