@@ -1,6 +1,7 @@
 ﻿using BudgetControl.Data.Context;
 using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetControl.Infrastructure.Repository;
 
@@ -13,33 +14,49 @@ public class IncomeRepository : IIncomeRepository
 		_budgetControlDB = budgetControlDBContext;
 	}
 
-	public Task<bool> CreateAsync(Income entity)
+	public async Task<bool> CreateAsync(Income entity)
 	{
-		throw new NotImplementedException();
+		var inserted = await _budgetControlDB.Incomes.AddAsync(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
-	public Task<bool> DeleteAsync(Income entity)
+	public async Task<bool> DeleteAsync(Income entity)
 	{
-		throw new NotImplementedException();
+		var deleted = _budgetControlDB.Incomes.Remove(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
-	public Task<List<Income>> GetAllAsync()
+	public async Task<List<Income>> GetAllAsync()
 	{
-		throw new NotImplementedException();
+		var incomes = await _budgetControlDB.Incomes.ToListAsync();
+		return incomes;
 	}
 
-	public Task<Income?> GetByIdAsync(int id)
+	public async Task<Income?> GetByIdAsync(int id)
 	{
-		throw new NotImplementedException();
+		var incomes = await _budgetControlDB.Incomes.ToListAsync();
+		var income = incomes.Where(ex => ex.Id == id).FirstOrDefault();
+
+		return income;
 	}
 
-	public Task<List<Income?>> GetByNameAsync(string name)
+	public async Task<List<Income?>> GetByNameAsync(string name)
 	{
-		throw new NotImplementedException();
+		var incomes = await _budgetControlDB.Incomes.ToListAsync();
+		var income = incomes.Where(exp => exp.Description.Equals(name)).ToList();
+
+		return income;
 	}
 
-	public Task<bool> Update(Income entity)
+	public async Task<bool> Update(Income entity)
 	{
-		throw new NotImplementedException();
+		_budgetControlDB.Incomes.Update(entity);
+		var wasSaved = await _budgetControlDB.SaveChangesAsync();
+
+		return wasSaved > 0;
 	}
 }

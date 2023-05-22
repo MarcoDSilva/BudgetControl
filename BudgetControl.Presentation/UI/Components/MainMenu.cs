@@ -7,9 +7,10 @@ namespace BudgetControl.Presentation.UI.Components;
 
 public class MainMenu
 {
-    public bool wasShuttedDown { get; set; }
+	public bool wasShuttedDown { get; set; }
 
-    private readonly IExpensesService _expensesService;
+	private readonly IExpensesService _expensesService;
+	private readonly IIncomeService _incomeService;
 	public enum Selections
 	{
 		Summary,
@@ -26,10 +27,12 @@ public class MainMenu
 		wasShuttedDown = false;
 	}
 
-	public MainMenu(IExpensesService expensesService)
+	public MainMenu(IExpensesService expensesService,
+						IIncomeService incomeService)
 	{
-		_expensesService = expensesService;
 		wasShuttedDown = false;
+		_expensesService = expensesService;
+		_incomeService = incomeService;
 	}
 
 	public string StartSelection()
@@ -83,7 +86,7 @@ public class MainMenu
 				await CallCategories();
 				break;
 			case nameof(Selections.SubCategories):
-				await CallSubCategories();				
+				await CallSubCategories();
 				break;
 			case nameof(Selections.Exit):
 				wasShuttedDown = true;
@@ -120,9 +123,12 @@ public class MainMenu
 
 	private async Task CallIncome()
 	{
-		//var income = new IncomeMenu(_incomeService);
-		//await income.GetOptions();
+		string selected = GetOptions(nameof(Selections.Income));
+		var income = new IncomeMenu(_incomeService);
+
+		await income.Selection(selected);
 	}
+
 	private async Task CallCategories()
 	{
 		//var category = new CategoriesMenu(_categoryService);

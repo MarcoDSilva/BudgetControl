@@ -34,7 +34,7 @@ public class ExpensesService : IExpensesService
 		return addedExpense;
 	}
 
-	public async Task<List<ExpensesDTO>> GetExpenses()
+	public async Task<List<ExpensesDTO>> GetAllAsync()
 	{
 		var expenses = await _unitOfWork.expensesRepository.GetAllAsync();
 		var expensesDTO = new List<ExpensesDTO>();
@@ -63,7 +63,7 @@ public class ExpensesService : IExpensesService
 		return remove;
 	}
 
-	public async Task<Expenses?> GetExpenseByID(int id)
+	public async Task<Expenses?> GetByID(int id)
 	{
 		var expenses = await _unitOfWork.expensesRepository.GetAllAsync();
 		var expense = expenses.Find(exp => exp.Id == id);

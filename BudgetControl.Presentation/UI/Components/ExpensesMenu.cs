@@ -61,7 +61,7 @@ public class ExpensesMenu
 
 	public async Task GetExpenses()
 	{
-		var expenses = await _expensesService.GetExpenses();
+		var expenses = await _expensesService.GetAllAsync();
 
 		if (expenses?.Count > 0)
 		{
@@ -97,7 +97,7 @@ public class ExpensesMenu
 		Question("Expense to remove?");
 
 		var expenseId = GetID("What is the ID of the expense you want to remove?");
-		var expense = await _expensesService.GetExpenseByID(expenseId);
+		var expense = await _expensesService.GetByID(expenseId);
 
 		if (expense is null)
 		{
@@ -116,7 +116,7 @@ public class ExpensesMenu
 		Question("Expense to edit.");
 
 		var expenseId = GetID("What is the ID of the expense you want to edit?");
-		var expense = await _expensesService.GetExpenseByID(expenseId);
+		var expense = await _expensesService.GetByID(expenseId);
 
 		if (expense is null)
 		{

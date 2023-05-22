@@ -29,9 +29,10 @@ internal class Program
 
 		// getting services for DI to presentation
 		var expenseService = host.Services.GetRequiredService<IExpensesService>();
+		var incomeService = host.Services.GetRequiredService<IIncomeService>();
 
 		// running the program
-		var main = new MainMenu(expenseService);
+		var main = new MainMenu(expenseService, incomeService);
 
 		bool wasOrderedToClose = false;
 

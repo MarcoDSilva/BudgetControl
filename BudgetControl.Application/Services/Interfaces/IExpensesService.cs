@@ -5,9 +5,9 @@ namespace BudgetControl.Application.Services.Interfaces;
 
 public interface IExpensesService
 {
-	Task<List<ExpensesDTO>> GetExpenses();
+	Task<List<ExpensesDTO>> GetAllAsync();
 	Task<bool> AddAsync(ExpensesDTO expensesDTO);
 	Task<bool> RemoveAsync(Expenses expense);
 	Task<bool> EditAsync(Expenses expensesDTO);
-	Task<Expenses?> GetExpenseByID(int id);
+	Task<Expenses?> GetByID(int id);
 }
