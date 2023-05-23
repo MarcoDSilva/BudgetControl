@@ -10,7 +10,7 @@ public static class ServicesRegistration
 	public static IServiceCollection AddServicesDI(this IServiceCollection services)
 	{
 		services.AddScoped<IExpensesService, ExpensesService>();
-		//services.AddScoped<ICategoryService, CategoryService>();
+		services.AddScoped<ICategoryService, CategoryService>();
 		services.AddScoped<IIncomeService, IncomeService>();
 		//services.AddScoped<IInvestmentService, InvestmentService>();
 

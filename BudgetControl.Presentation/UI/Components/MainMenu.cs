@@ -1,5 +1,4 @@
 ﻿using BudgetControl.Application.Services.Interfaces;
-using BudgetControl.Application.Services.Logic;
 using BudgetControl.Presentation.Shared.Enums;
 using Spectre.Console;
 

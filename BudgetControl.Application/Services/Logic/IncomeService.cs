@@ -45,13 +45,13 @@ public class IncomeService : IIncomeService
 		var incomes = await _unitOfWork.incomeRepository.GetAllAsync();
 		var incomeDTO = new List<IncomeDTO>();
 
-		incomes.ForEach(exp => incomeDTO.Add(new IncomeDTO
+		incomes.ForEach(inc => incomeDTO.Add(new IncomeDTO
 		{
-			CategoryId = exp.CategoryId,
-			Description = exp.Description,
-			SubCategoryId = exp.SubCategoryId,
-			Value = exp.Value,
-			TransactionDate = exp.TransactionDate
+			CategoryId = inc.CategoryId,
+			Description = inc.Description,
+			SubCategoryId = inc.SubCategoryId,
+			Value = inc.Value,
+			TransactionDate = inc.TransactionDate
 		}));
 
 		return incomeDTO;
@@ -60,7 +60,7 @@ public class IncomeService : IIncomeService
 	public async Task<Income?> GetByID(int id)
 	{
 		var incomes = await _unitOfWork.incomeRepository.GetAllAsync();
-		var income = incomes.Find(exp => exp.Id == id);
+		var income = incomes.Find(inc => inc.Id == id);
 
 		return income;
 	}

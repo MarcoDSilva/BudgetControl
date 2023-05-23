@@ -39,7 +39,7 @@ public class IncomeRepository : IIncomeRepository
 	public async Task<Income?> GetByIdAsync(int id)
 	{
 		var incomes = await _budgetControlDB.Incomes.ToListAsync();
-		var income = incomes.Where(ex => ex.Id == id).FirstOrDefault();
+		var income = incomes.Where(inc => inc.Id == id).FirstOrDefault();
 
 		return income;
 	}
@@ -47,7 +47,9 @@ public class IncomeRepository : IIncomeRepository
 	public async Task<List<Income?>> GetByNameAsync(string name)
 	{
 		var incomes = await _budgetControlDB.Incomes.ToListAsync();
-		var income = incomes.Where(exp => exp.Description.Equals(name)).ToList();
+		var income = incomes.Where(inc => inc.Description.ToLower()
+											.Equals(name?.ToLower())
+									).ToList();
 
 		return income;
 	}

@@ -1,8 +1,7 @@
 ﻿using BudgetControl.Data.Context;
 using BudgetControl.Domain.Entities;
-using BudgetControl.Domain.Interfaces;
 using BudgetControl.Infrastructure.Interfaces;
-using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace BudgetControl.Infrastructure.Repository;
 public class CategoryRepository : ICategoryRepository
@@ -15,33 +14,52 @@ public class CategoryRepository : ICategoryRepository
 	}
 
 
-	public Task<bool> CreateAsync(Category entity)
+	public async Task<bool> CreateAsync(Category entity)
 	{
-		throw new NotImplementedException();
+		var inserted = await _budgetControlDB.Categories.AddAsync(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
-	public Task<bool> DeleteAsync(Category entity)
+	public async Task<bool> DeleteAsync(Category entity)
 	{
-		throw new NotImplementedException();
+		var deleted = _budgetControlDB.Categories.Remove(entity);
+		var save = await _budgetControlDB.SaveChangesAsync();
+
+		return save > 0;
 	}
 
-	public Task<List<Category>> GetAllAsync()
+	public async Task<List<Category>> GetAllAsync()
 	{
-		throw new NotImplementedException();
+		var categories = await _budgetControlDB.Categories.ToListAsync();
+		return categories;
 	}
 
-	public Task<Category?> GetByIdAsync(int id)
+	public async Task<Category?> GetByIdAsync(int id)
 	{
-		throw new NotImplementedException();
+		var categories = await _budgetControlDB.Categories.ToListAsync();
+		var category = categories.Where(ct => ct.Id == id).FirstOrDefault();
+
+		return category;
 	}
 
-	public Task<List<Category?>> GetByNameAsync(string name)
+	public async Task<List<Category?>> GetByNameAsync(string name)
 	{
-		throw new NotImplementedException();
+		var categories = await _budgetControlDB.Categories.ToListAsync();
+		var category = categories.Where(ct => ct.Name.ToLower()
+												.Equals(
+													name.ToLower())
+										).ToList();
+
+		return category;
 	}
 
-	public Task<bool> Update(Category entity)
+	public async Task<bool> Update(Category entity)
 	{
-		throw new NotImplementedException();
-	}	
+		_budgetControlDB.Categories.Update(entity);
+		var wasSaved = await _budgetControlDB.SaveChangesAsync();
+
+		return wasSaved > 0;
+	}
 }
