@@ -1,12 +1,13 @@
 ﻿using BudgetControl.Application.DTO;
 using BudgetControl.Application.Services.Interfaces;
 using BudgetControl.Domain.Entities;
+using BudgetControl.Presentation.Shared.Components;
 using BudgetControl.Presentation.Shared.Enums;
 using Spectre.Console;
 
 namespace BudgetControl.Presentation.UI.Components;
 
-public class ExpensesMenu
+public class ExpensesMenu : DrawComponents
 {
 	private readonly IExpensesService _expensesService;
 
@@ -132,31 +133,6 @@ public class ExpensesMenu
 		AnsiConsole.WriteLine(wasEdited ? "sucessfully edited" : "something super wrong happened");
 	}
 
-	private void Question(string message)
-	{
-		var rule = new Rule($"[yellow4_1]{message}[/]");
-		rule.LeftJustified();
-		AnsiConsole.Write(rule);
-	}
-
-	private int GetID(string message)
-	{
-		var expenseId = AnsiConsole.Prompt<int>(
-							new TextPrompt<int>(message)
-							.PromptStyle("red")
-							.ValidationErrorMessage("[red]That's not a valid ID[/]")
-							.Validate(id =>
-							{
-								return id switch
-								{
-									<= 0 => ValidationResult.Error("[red]Id can't be equal or under to 0![/]"),
-									_ => ValidationResult.Success(),
-								};
-							}));
-
-		return expenseId;
-	}
-
 	private void DrawExpense(Expenses expense)
 	{
 		var tableExpenses = new Table();
@@ -180,16 +156,7 @@ public class ExpensesMenu
 
 	private Expenses EditExpenseField(Expenses expense)
 	{
-		var editedExpense = AnsiConsole.Prompt<int>(
-								new TextPrompt<int>("What field you want to edit? Pick the number from the field.")
-								.Validate(id =>
-								{
-									return id switch
-									{
-										<= 0 => ValidationResult.Error("[red]Id can't be equal or under to 0![/]"),
-										_ => ValidationResult.Success(),
-									};
-								}));
+		var editedExpense = FieldToEdit();
 
 		switch (editedExpense)
 		{

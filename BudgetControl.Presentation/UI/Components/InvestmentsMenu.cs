@@ -1,5 +1,7 @@
-﻿namespace BudgetControl.Presentation.UI.Components;
+﻿using BudgetControl.Presentation.Shared.Components;
 
-public class InvestmentsMenu
+namespace BudgetControl.Presentation.UI.Components;
+
+public class InvestmentsMenu : DrawComponents
 {
 }

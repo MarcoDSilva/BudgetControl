@@ -30,9 +30,10 @@ internal class Program
 		// getting services for DI to presentation
 		var expenseService = host.Services.GetRequiredService<IExpensesService>();
 		var incomeService = host.Services.GetRequiredService<IIncomeService>();
+		var categoryService = host.Services.GetRequiredService<ICategoryService>();
 
 		// running the program
-		var main = new MainMenu(expenseService, incomeService);
+		var main = new MainMenu(expenseService, incomeService, categoryService);
 
 		bool wasOrderedToClose = false;
 
