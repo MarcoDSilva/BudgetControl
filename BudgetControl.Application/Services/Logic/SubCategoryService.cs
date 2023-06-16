@@ -2,7 +2,6 @@
 using BudgetControl.Application.DTO;
 using BudgetControl.Application.Services.Interfaces;
 using BudgetControl.Domain.Common;
-using BudgetControl.Domain.Entities;
 using BudgetControl.Infrastructure.Interfaces;
 
 namespace BudgetControl.Application.Services.Logic;
@@ -32,23 +31,36 @@ public class SubCategoryService : ISubCategoryService
 		return addedCategory;
 	}
 
-	public Task<bool> EditAsync(SubCategory subCategory)
+	public async Task<bool> EditAsync(SubCategory subCategory)
 	{
-		throw new NotImplementedException();
+		var wasSaved = await _unitOfWork.subCategoryRepository.Update(subCategory);
+		return wasSaved;
 	}
 
-	public Task<List<SubCategoryDTO>> GetAllAsync()
+	public async Task<List<SubCategoryDTO>> GetAllAsync()
 	{
-		throw new NotImplementedException();
+		var subCategories = await _unitOfWork.subCategoryRepository.GetAllAsync();
+		var subCategoriesDTO = new List<SubCategoryDTO>();
+
+		subCategories.ForEach(ct => subCategoriesDTO.Add(new SubCategoryDTO
+		{
+			Name = ct.Name
+		}));
+
+		return subCategoriesDTO;
 	}
 
-	public Task<SubCategory?> GetByID(int id)
+	public async Task<SubCategory?> GetByID(int id)
 	{
-		throw new NotImplementedException();
+		var subCategories = await _unitOfWork.subCategoryRepository.GetAllAsync();
+		var subCategory = subCategories.Find(ct => ct.Id == id);
+
+		return subCategory;
 	}
 
-	public Task<bool> RemoveAsync(SubCategory subCategory)
+	public async Task<bool> RemoveAsync(SubCategory subCategory)
 	{
-		throw new NotImplementedException();
+		var remove = await _unitOfWork.subCategoryRepository.DeleteAsync(subCategory);
+		return remove;
 	}
 }

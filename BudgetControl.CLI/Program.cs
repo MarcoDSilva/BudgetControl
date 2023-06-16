@@ -31,9 +31,11 @@ internal class Program
 		var expenseService = host.Services.GetRequiredService<IExpensesService>();
 		var incomeService = host.Services.GetRequiredService<IIncomeService>();
 		var categoryService = host.Services.GetRequiredService<ICategoryService>();
+		var subCategoryService = host.Services.GetRequiredService<ISubCategoryService>();
 
 		// running the program
-		var main = new MainMenu(expenseService, incomeService, categoryService);
+		var main = new MainMenu(
+				expenseService, incomeService, categoryService, subCategoryService);
 
 		bool wasOrderedToClose = false;
 

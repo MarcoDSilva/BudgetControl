@@ -10,6 +10,7 @@ public static class InfrastructureRegistration
 	{
 		services
 			.AddScoped<ICategoryRepository, CategoryRepository>()
+			.AddScoped<ISubCategoryRepository, SubCategoryRepository>()
 			.AddScoped<IExpensesRepository, ExpensesRepository>()
 			.AddScoped<IIncomeRepository, IncomeRepository>()
 			.AddScoped<IInvestmentRepository, InvestmentRepository>()

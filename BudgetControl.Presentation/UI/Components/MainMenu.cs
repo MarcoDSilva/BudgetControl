@@ -11,6 +11,7 @@ public class MainMenu
 	private readonly IExpensesService _expensesService;
 	private readonly IIncomeService _incomeService;
 	private readonly ICategoryService _categoryService;
+	public readonly ISubCategoryService _subCategoryService;
 
 	public enum Selections
 	{
@@ -30,12 +31,14 @@ public class MainMenu
 
 	public MainMenu(IExpensesService expensesService,
 						IIncomeService incomeService,
-						ICategoryService categoryService)
+						ICategoryService categoryService,
+						ISubCategoryService subCategoryService)
 	{
 		wasShuttedDown = false;
 		_expensesService = expensesService;
 		_incomeService = incomeService;
 		_categoryService = categoryService;
+		_subCategoryService = subCategoryService;
 	}
 
 	public string StartSelection()
@@ -142,7 +145,9 @@ public class MainMenu
 
 	private async Task CallSubCategories()
 	{
-		//var subCategory = new SubCategoriesMenu(_subCategoryService);
-		//await subCategory.GetOptions();
+		string selected = GetOptions(nameof(Selections.SubCategories));
+		var subCategory = new SubCategoriesMenu(_subCategoryService);
+
+		await subCategory.Selection(selected);
 	}
 }
