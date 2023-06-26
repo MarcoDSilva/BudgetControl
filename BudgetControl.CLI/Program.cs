@@ -1,15 +1,12 @@
 ﻿using BudgetControl.Presentation.UI.Components;
-using Spectre.Console;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using BudgetControl.Application;
 using BudgetControl.Application.Services.Interfaces;
-using BudgetControl.Application.Services.Logic;
 using BudgetControl.Infrastructure;
-using BudgetControl.Data.Context;
 using BudgetControl.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 internal class Program
 {
@@ -17,13 +14,14 @@ internal class Program
 	{
 		// to setup configurations like appsettings and so on
 		var config = new ConfigurationBuilder();
+		IMapper mapper = MapperRegistration.RegisteringMapper().CreateMapper();
 
 		var host = Host.CreateDefaultBuilder()
 						.ConfigureServices((context, services) =>
 						{
 							services.AddServicesDI();
 							services.AddInfrastructureDI();
-							services.AddAutoMapper(typeof(Program).Assembly);
+							services.AddSingleton(mapper);
 							services.AddDBService();
 						}).Build();
 
