@@ -94,6 +94,9 @@ public class MainMenu
 			case nameof(Selections.SubCategories):
 				await CallSubCategories();
 				break;
+			case nameof(Selections.Investments):
+				await CallInvestments();
+				break;
 			case nameof(Selections.Exit):
 				wasShuttedDown = true;
 				break;
@@ -149,5 +152,13 @@ public class MainMenu
 		var subCategory = new SubCategoriesMenu(_subCategoryService);
 
 		await subCategory.Selection(selected);
+	}
+
+	private async Task CallInvestments()
+	{
+		string selected = GetOptions(nameof(Selections.Investments));
+		//var investments = new InvestmentsMenu(_investmentService);
+
+		//await investments.Selection(selected);
 	}
 }

@@ -6,5 +6,5 @@ public class IncomeDTO
 	public int CategoryId { get; set; }
 	public int SubCategoryId { get; set; }
 	public decimal Value { get; set; }
-	public string Description { get; set; }
+	public string Description { get; set; } = "";
 }
