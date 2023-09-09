@@ -2,7 +2,7 @@
 using BudgetControl.Application.DTO;
 using BudgetControl.Application.Services.Interfaces;
 using BudgetControl.Domain.Entities;
-using BudgetControl.Infrastructure.Interfaces;
+using BudgetControl.Application.Repository.Interfaces;
 
 namespace BudgetControl.Application.Services.Logic;
 
